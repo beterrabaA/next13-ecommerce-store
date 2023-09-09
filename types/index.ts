@@ -1,4 +1,4 @@
-export interface Image {
+export interface IImage {
   id: string
   url: string
 }
@@ -35,5 +35,5 @@ export interface IProduct {
   isFeatured: boolean
   size: ISize
   color: IColor
-  images: Image[]
+  images: IImage[]
 }
