@@ -4,7 +4,7 @@ import { ShoppingCart } from 'lucide-react'
 
 import { IProduct } from '@/types'
 
-import useCart from '@/hooks/use-cart'
+import useCart from '@/hooks/useCart'
 
 import Currency from '@/components/ui/currency'
 import Button from '@/components/ui/button'
