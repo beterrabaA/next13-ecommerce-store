@@ -5,6 +5,7 @@ import { Urbanist } from 'next/font/google'
 import './globals.css'
 
 import ModalProvider from '@/providers/ModalProvider'
+import ToastProvider from '@/providers/ToastProvider'
 
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={urbanist.className}>
         <ModalProvider />
+        <ToastProvider />
         <Navbar />
         {children}
         <Footer />
