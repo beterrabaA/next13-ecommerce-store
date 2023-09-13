@@ -1,24 +1,41 @@
 'use client'
 
 import Image from 'next/image'
+import { MouseEventHandler } from 'react'
 import { Expand, ShoppingCart } from 'lucide-react'
-
-import { IProduct } from '@/types'
-
-import IconButton from '@/components/ui/icon-button'
-import Currency from '@/components/ui/currency'
 import { useRouter } from 'next/navigation'
 
-interface ProductCardProps {
+import Currency from '@/components/ui/currency'
+import IconButton from '@/components/ui/icon-button'
+import usePreviewModal from '@/hooks/usePreviewModal'
+import useCart from '@/hooks/useCart'
+import { IProduct } from '@/types'
+
+interface ProductCard {
   data: IProduct
 }
 
-const ProductCard = ({ data }: ProductCardProps) => {
+const ProductCard = ({ data }: ProductCard) => {
+  const previewModal = usePreviewModal()
+  const cart = useCart()
   const router = useRouter()
 
   const handleClick = () => {
-    router.push(`/product/${data.id}`)
+    router.push(`/product/${data?.id}`)
   }
+
+  const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation()
+
+    previewModal.onOpen(data)
+  }
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation()
+
+    cart.addItem(data)
+  }
+
   return (
     <div
       onClick={handleClick}
@@ -26,19 +43,19 @@ const ProductCard = ({ data }: ProductCardProps) => {
     >
       <div className="aspect-square rounded-xl bg-gray-100 relative">
         <Image
-          className="aspect-square object-cover rounded-md"
           src={data.images[0].url}
-          alt="Image"
+          alt=""
           fill
+          className="aspect-square object-cover rounded-md"
         />
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">
             <IconButton
-              onClick={() => console.log('clicou')}
+              onClick={onPreview}
               icon={<Expand size={20} className="text-gray-600" />}
             />
             <IconButton
-              onClick={() => console.log('clicou')}
+              onClick={onAddToCart}
               icon={<ShoppingCart size={20} className="text-gray-600" />}
             />
           </div>
